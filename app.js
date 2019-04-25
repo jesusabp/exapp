@@ -52,8 +52,8 @@ const options = {
 
 //	var http = require('http');
 
-//const CronJob = require('cron').CronJob;
-//const job = new CronJob('*/5 * * * * *', function(){
+const CronJob = require('cron').CronJob;
+const job = new CronJob('30 * * * *', function(){
 
 rp(options)
   .then(($) => {
@@ -69,8 +69,8 @@ rp(options)
     console.log(err);
   });
 
-//});
-//job.start();
+});
+job.start();
 
 //http://www.sqlitetutorial.net/sqlite-nodejs/insert/
 function insertOfertas(ofertasNow){
