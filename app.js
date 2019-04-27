@@ -97,7 +97,7 @@ function insertOfertasMysql(ofertasNow){
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
-  host: "localhost",
+  host: "172.30.97.124",
   user: "DBusername",
   password: "DBpass",
   database: "computrabajo"
