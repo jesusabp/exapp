@@ -45,7 +45,7 @@ const CronJob = require('cron').CronJob;
 const job = new CronJob('*/15 * * * * *', function(){
 	catchOffers("ar",`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
 	catchOffers("co",`https://www.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
-	catchOffers("mx",`https://www.computrabajo.com.mx/`,'Portal del empleo líder en Latinoamérica' );
+	catchOffers("mx",`https://www.computrabajo.com.mx`,'Portal del empleo líder en Latinoamérica' );
 });
 job.start();
 
@@ -67,7 +67,7 @@ function catchOffers(abbrev, url, moto){
 		ofertas = ofertas.replace(moto, '');
 		ofertas = ofertas.replace('ofertas','');
 		ofertas = ofertas.replace(/\n$/, '');
-		insertOfertasMysql(abbrev, ofertas);
+		insertOfertasMysql(abbrev, ofertas); // console.log(abbrev +" "+ ofertas)
 	  })
 	  .catch((err) => {
 		console.log(err);
@@ -90,7 +90,7 @@ function insertOfertasMysql(abbrev, ofertasNow){
 
 	  con.query(sql, function (err, result) {
 		if (err) throw err;
-		console.log(abbrev + " " + ofertasNow);
+		console.log("INSERTED "+sql);
 	  });
 	});
 }
