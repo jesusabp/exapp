@@ -71,10 +71,30 @@ rp(options)
 });
 job.start();
 
+function insertOfertasMysql(ofertasNow){
+	var mysql = require('mysql');
+	var con = mysql.createConnection({
+	  host: "172.30.97.124",
+	  user: "DBusername",
+	  password: "DBpass",
+	  database: "computrabajo"
+	});
+
+	con.connect(function(err) {
+	  if (err) throw err;
+	  console.log("Connected!");
+	  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ("+ofertasNow+",now())";
+
+	  con.query(sql, function (err, result) {
+		if (err) throw err;
+		console.log(result.insertId + " " + ofertasNow);
+	  });
+	});
+}
+
 //http://www.sqlitetutorial.net/sqlite-nodejs/insert/
 function insertOfertas(ofertasNow){
-  const sqlite3 = require('sqlite3').verbose();
-   
+  const sqlite3 = require('sqlite3').verbose();   
   let db = new sqlite3.Database('./db/computrabajo.db');
  
   // insert one row into the langs table
@@ -88,54 +108,6 @@ function insertOfertas(ofertasNow){
  
   // close the database connection
   db.close();
-}
-
-function insertOfertasMysql(ofertasNow){
-
-var mysql = require('mysql');
-
-var con = mysql.createConnection({
-  host: "172.30.97.124",
-  user: "DBusername",
-  password: "DBpass",
-  database: "computrabajo"
-});
-
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-//  var values = [ofertasNow, datetime()];
-
-//  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ?”;
-    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ("+ofertasNow+",now())";
-
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log(result.insertId + " " + ofertasNow);
-  });
-});
-}
-
-function insertOfertasMy(ofertasNow){
-
- var mysql = require('mysql');
-
- var con = mysql.createConnection({
-  host: "172.30.97.124",
-  user: "DBusername",
-  password: "DBpass",
-  database: "computrabajo"
- });
-
- con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES (123, 'Blue Village 1')";
-
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-  });
- });
 }
 
 /******/
