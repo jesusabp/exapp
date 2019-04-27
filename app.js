@@ -62,8 +62,6 @@ rp(options)
     ofertas = ofertas.replace('El portal de empleo con más ofertas en Argentina', '');
     ofertas = ofertas.replace('ofertas','');
     ofertas = ofertas.replace(/\n$/, '');
-    console.log( ofertas );
-   
     insertOfertasMysql(ofertas);
   })
   .catch((err) => {
@@ -109,10 +107,8 @@ con.connect(function(err) {
 //  var values = [ofertasNow, datetime()];
 
 //  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ?”;
-    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ("+ofertasNow+", 'Blue Village 1')";
+    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ("+ofertasNow+",now())";
 
-
-//  con.query(sql, [values], function (err, result) {
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log(result.insertId + " " + ofertasNow);
