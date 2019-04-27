@@ -90,7 +90,7 @@ function insertOfertasMysql(abbrev, ofertasNow){
 
 	  con.query(sql, function (err, result) {
 		if (err) throw err;
-		console.log(result.insertId + " " + ofertasNow);
+		console.log(abbrev + " " + ofertasNow);
 	  });
 	});
 }
