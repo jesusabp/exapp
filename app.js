@@ -106,16 +106,39 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-//  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ?”;
-    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES (123, 'Blue Village 1')";
+  var values = [ofertasNow, datetime()];
 
-//  var values = [ofertasNow, datetime()];
-//  con.query(sql, [values], function (err, result) {
-  con.query(sql, function (err, result) {
+  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ?”;
+//    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES (123, 'Blue Village 1')";
+
+  con.query(sql, [values], function (err, result) {
+//  con.query(sql, function (err, result) {
     if (err) throw err;
-//    console.log(`A row has been inserted with rowid: ` + result.insertId);
+    console.log(result.insertId);
   });
 });
+}
+
+function insertOfertasMy(ofertasNow){
+
+ var mysql = require('mysql');
+
+ var con = mysql.createConnection({
+  host: "172.30.97.124",
+  user: "DBusername",
+  password: "DBpass",
+  database: "computrabajo"
+ });
+
+ con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES (123, 'Blue Village 1')";
+
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+  });
+ });
 }
 
 /******/
