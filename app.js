@@ -40,7 +40,7 @@ app.use(function(err, req, res, next) {
 
 /******/
 
-function catchOffers(url, moto){
+function catchOffers(abbrev, url, moto){
 	//https://codeburst.io/an-introduction-to-web-scraping-with-node-js-1045b55c63f7
 	const rp = require('request-promise');
 	const cheerio = require('cheerio');
@@ -59,7 +59,7 @@ function catchOffers(url, moto){
 		ofertas = ofertas.replace(moto, '');
 		ofertas = ofertas.replace('ofertas','');
 		ofertas = ofertas.replace(/\n$/, '');
-		insertOfertasMysql(ofertas);
+		insertOfertasMysql(abbrev, ofertas);
 	  })
 	  .catch((err) => {
 		console.log(err);
@@ -69,12 +69,13 @@ function catchOffers(url, moto){
 const CronJob = require('cron').CronJob;
 // const job = new CronJob('30 * * * *', function(){
 const job = new CronJob('*/15 * * * * *', function(){
-	catchOffers(`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
-	
+	catchOffers("ar",`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
+	catchOffers("co",`https://www.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
+	catchOffers("mx",`https://www.computrabajo.com.mx/`,'Portal del empleo líder en Latinoamérica' );
 });
 job.start();
 
-function insertOfertasMysql(ofertasNow){
+function insertOfertasMysql(abbrev, ofertasNow){
 	var mysql = require('mysql');
 	var con = mysql.createConnection({
 	  host: "172.30.131.55",
@@ -86,7 +87,7 @@ function insertOfertasMysql(ofertasNow){
 	con.connect(function(err) {
 	  if (err) throw err;
 	  console.log("Connected!");
-	  var sql = "INSERT INTO ofertas (ar, datetime) VALUES ("+ofertasNow+",now())";
+	  var sql = "INSERT INTO ofertas ("+abbrev+", datetime) VALUES ("+ofertasNow+",now())";
 
 	  con.query(sql, function (err, result) {
 		if (err) throw err;
