@@ -74,16 +74,16 @@ job.start();
 function insertOfertasMysql(ofertasNow){
 	var mysql = require('mysql');
 	var con = mysql.createConnection({
-	  host: "172.30.97.124",
+	  host: "172.31.59.97",
 	  user: "DBusername",
 	  password: "DBpass",
-	  database: "computrabajo"
+	  database: "empleo"
 	});
 
 	con.connect(function(err) {
 	  if (err) throw err;
 	  console.log("Connected!");
-	  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ("+ofertasNow+",now())";
+	  var sql = "INSERT INTO ofertas (ar, datetime) VALUES ("+ofertasNow+",now())";
 
 	  con.query(sql, function (err, result) {
 		if (err) throw err;
@@ -95,7 +95,7 @@ function insertOfertasMysql(ofertasNow){
 //http://www.sqlitetutorial.net/sqlite-nodejs/insert/
 function insertOfertas(ofertasNow){
   const sqlite3 = require('sqlite3').verbose();   
-  let db = new sqlite3.Database('./db/computrabajo.db');
+  let db = new sqlite3.Database('./db/empleo.db');
  
   // insert one row into the langs table
   db.run(`INSERT INTO ofertas(ofertas, datetime) VALUES(?, datetime())`,[ofertasNow], function(err) {
