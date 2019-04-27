@@ -74,7 +74,7 @@ job.start();
 function insertOfertasMysql(ofertasNow){
 	var mysql = require('mysql');
 	var con = mysql.createConnection({
-	  host: "172.31.131.55",
+	  host: "172.30.131.55",
 	  user: "DBusername",
 	  password: "DBpass",
 	  database: "empleo"
