@@ -106,10 +106,14 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES(?, datetime())";
+//  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ?”;
+    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES (123, 'Blue Village 1')";
+
+  var values = [ofertas, datetime()];
+//  con.query(sql, [values], function (err, result) {
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log(`A row has been inserted with rowid ${this.lastID}`);
+//    console.log(`A row has been inserted with rowid: ` + result.insertId);
   });
 });
 }
