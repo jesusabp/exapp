@@ -53,7 +53,8 @@ const options = {
 //	var http = require('http');
 
 const CronJob = require('cron').CronJob;
-const job = new CronJob('30 * * * *', function(){
+// const job = new CronJob('30 * * * *', function(){
+const job = new CronJob('*/5 * * * * *', function(){
 
 rp(options)
   .then(($) => {
@@ -63,7 +64,7 @@ rp(options)
     ofertas = ofertas.replace(/\n$/, '');
     console.log( ofertas );
    
-    insertOfertas(ofertas);
+    insertOfertasMysql(ofertas);
   })
   .catch((err) => {
     console.log(err);
@@ -89,6 +90,28 @@ function insertOfertas(ofertasNow){
  
   // close the database connection
   db.close();
+}
+
+function insertOfertasMysql(ofertasNow){
+
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "DBusername",
+  password: "DBpass",
+  database: "computrabajo"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES(?, datetime())";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log(`A row has been inserted with rowid ${this.lastID}`);
+  });
+});
 }
 
 /******/
