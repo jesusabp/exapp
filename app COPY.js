@@ -40,37 +40,34 @@ app.use(function(err, req, res, next) {
 
 /******/
 
-function catchOffers(url, moto){
-	//https://codeburst.io/an-introduction-to-web-scraping-with-node-js-1045b55c63f7
-	const rp = require('request-promise');
-	const cheerio = require('cheerio');
-	const options = {
-//	  uri: `https://www.computrabajo.com.ar`,
-	uri: url,
-	  transform: function (body) {
-		return cheerio.load(body);
-	  }
-	};
+//https://codeburst.io/an-introduction-to-web-scraping-with-node-js-1045b55c63f7
+const rp = require('request-promise');
+const cheerio = require('cheerio');
+const options = {
+  uri: `https://www.computrabajo.com.ar`,
+  transform: function (body) {
+    return cheerio.load(body);
+  }
+};
 
-	rp(options)
-	  .then(($) => {
-		var ofertas = $('.sT').text(); 
-//		ofertas = ofertas.replace('El portal de empleo con más ofertas en Argentina', '');
-		ofertas = ofertas.replace(moto, '');
-		ofertas = ofertas.replace('ofertas','');
-		ofertas = ofertas.replace(/\n$/, '');
-		insertOfertasMysql(ofertas);
-	  })
-	  .catch((err) => {
-		console.log(err);
-	  });
-}
+//	var http = require('http');
 
 const CronJob = require('cron').CronJob;
 // const job = new CronJob('30 * * * *', function(){
 const job = new CronJob('*/15 * * * * *', function(){
-	catchOffers(`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
-	
+
+rp(options)
+  .then(($) => {
+    var ofertas = $('.sT').text(); 
+    ofertas = ofertas.replace('El portal de empleo con más ofertas en Argentina', '');
+    ofertas = ofertas.replace('ofertas','');
+    ofertas = ofertas.replace(/\n$/, '');
+    insertOfertasMysql(ofertas);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 });
 job.start();
 
@@ -93,6 +90,24 @@ function insertOfertasMysql(ofertasNow){
 		console.log(result.insertId + " " + ofertasNow);
 	  });
 	});
+}
+
+//http://www.sqlitetutorial.net/sqlite-nodejs/insert/
+function insertOfertas(ofertasNow){
+  const sqlite3 = require('sqlite3').verbose();   
+  let db = new sqlite3.Database('./db/empleo.db');
+ 
+  // insert one row into the langs table
+  db.run(`INSERT INTO ofertas(ofertas, datetime) VALUES(?, datetime())`,[ofertasNow], function(err) {
+    if (err) {
+      return console.log(err.message);
+    }
+    // get the last insert id
+    console.log(`A row has been inserted with rowid ${this.lastID}`);
+  });
+ 
+  // close the database connection
+  db.close();
 }
 
 /******/
