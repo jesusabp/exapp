@@ -67,7 +67,8 @@ function catchOffers(abbrev, url, moto){
 		ofertas = ofertas.replace(moto, '');
 		ofertas = ofertas.replace('ofertas','');
 		ofertas = ofertas.replace(/\n$/, '');
-		insertOfertasMysql(abbrev, ofertas); // console.log(abbrev +" "+ ofertas)
+//		insertOfertasMysql(abbrev, ofertas); //
+ console.log(abbrev +" "+ ofertas)
 	  })
 	  .catch((err) => {
 		console.log(err);
@@ -87,10 +88,12 @@ function insertOfertasMysql(abbrev, ofertasNow){
 	  if (err) throw err;
 	  console.log("Connected!");
 	  var sql = "INSERT INTO ofertas (abbrev, datetime, oferta) VALUES (\""+abbrev+"\",now(),"+ofertasNow+");";
-
 	  con.query(sql, function (err, result) {
-		if (err) throw err;
+		if (err){ console.log("ERROR with: "+sql);
+throw err;
+		}
 		console.log("INSERTED "+sql);
+	con.release();
 	  });
 	});
 }
