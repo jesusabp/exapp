@@ -93,7 +93,6 @@ function insertOfertasMysql(abbrev, ofertasNow){
 throw err;
 		}
 		console.log("INSERTED "+sql);
-	con.release();
 	  });
 	});
 }
