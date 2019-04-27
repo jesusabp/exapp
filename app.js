@@ -106,13 +106,13 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  var values = [ofertasNow, NOW()];
+//  var values = [ofertasNow, datetime()];
 
 //  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ?”;
-    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES (123, 'Blue Village 1')";
+    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ("+ofertas+", "+20190427+")";
 
-  con.query(sql, [values], function (err, result) {
-//  con.query(sql, function (err, result) {
+//  con.query(sql, [values], function (err, result) {
+  con.query(sql, function (err, result) {
     if (err) throw err;
     console.log(result.insertId);
   });
