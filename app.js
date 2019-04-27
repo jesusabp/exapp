@@ -106,7 +106,7 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  var values = [ofertasNow, datetime()];
+  var values = [ofertasNow, NOW()];
 
 //  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ?”;
     var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES (123, 'Blue Village 1')";
