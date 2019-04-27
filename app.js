@@ -109,13 +109,13 @@ con.connect(function(err) {
 //  var values = [ofertasNow, datetime()];
 
 //  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ?”;
-    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES (“+ofertasNow+”, 'Blue Village 1')";
+    var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ("+ofertasNow+", 'Blue Village 1')";
 
 
 //  con.query(sql, [values], function (err, result) {
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log(result.insertId);
+    console.log(result.insertId + " " + ofertasNow);
   });
 });
 }
