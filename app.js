@@ -41,11 +41,32 @@ app.use(function(err, req, res, next) {
 /******/
 
 const CronJob = require('cron').CronJob;
-// const job = new CronJob('30 * * * *', function(){
-const job = new CronJob('*/15 * * * * *', function(){
+const job = new CronJob('40 * * * *', function(){
+//const job = new CronJob('*/15 * * * * *', function(){
 	catchOffers("ar",`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
 	catchOffers("co",`https://www.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
 	catchOffers("mx",`https://www.computrabajo.com.mx`,'Portal del empleo líder en Latinoamérica' );
+	catchOffers("pe",`https://www.computrabajo.com.pe`,'El portal de trabajo líder en Perú*' );
+
+	catchOffers("cl",`https://www.computrabajo.cl`,'El site de empleo #1 en Latinoamérica' );
+	catchOffers("ec",`https://www.computrabajo.com.ec`,'Encuentra las mejores ofertas en Ecuador' );
+	catchOffers("ve",`https://www.ve.computrabajo.com`,'Encuentra las mejores ofertas en Venezuela' );
+	catchOffers("cr",`https://www.computrabajo.co.cr`,'El portal de trabajo líder en Perú*' );
+
+	catchOffers("gt",`https://www.gt.computrabajo.com`,'Encuentra las mejores ofertas en Guatemala' );
+	catchOffers("sv",`https://www.sv.computrabajo.com`,'Encuentra las mejores ofertas en El Salvador' );
+	catchOffers("uy",`https://www.computrabajo.com.uy`,'Encuentra los mejores avisos en Uruguay' );
+	catchOffers("py",`https://www.computrabajo.com.py`,'Encuentra las mejores ofertas en Paraguay' );
+
+	catchOffers("pa",`https://www.computrabajo.com.pa`,'Encuentra las mejores ofertas en Panamá' );
+	catchOffers("hn",`https://www.computrabajo.com.hn`,'Encuentra las mejores ofertas en Honduras' );
+	catchOffers("ni",`https://www.computrabajo.com.ni`,'Encuentra las mejores ofertas en Nicaragua' );
+	catchOffers("do",`https://www.computrabajo.com.do`,'Encuentra las mejores ofertas en Republica Dominicana' );
+	
+	catchOffers("bo",`https://www.computrabajo.com.bo`,'Encuentra las mejores ofertas en Bolivia' );
+	catchOffers("cu",`https://www.cu.computrabajo.com`,'Encuentra las mejores ofertas en Cuba' );
+	catchOffers("pr",`https://www.computrabajo.com.pr`,'Encuentra las mejores ofertas en Puerto Rico' );
+	catchOffers("es",`https://www.computrabajo.es`,'La web de empleo en español más usada del mundo' );
 });
 job.start();
 
@@ -54,7 +75,6 @@ function catchOffers(abbrev, url, moto){
 	const rp = require('request-promise');
 	const cheerio = require('cheerio');
 	const options = {
-//	  uri: `https://www.computrabajo.com.ar`,
 	uri: url,
 	  transform: function (body) {
 		return cheerio.load(body);
@@ -88,13 +108,13 @@ function insertOfertasMysql(abbrev, ofertasNow){
 
 	con.connect(function(err) {
 	  if (err) throw err;
-	  console.log("Connected!");
+//	  console.log("Connected!");
 	  var sql = "INSERT INTO ofertas (abbrev, datetime, oferta) VALUES (\""+abbrev+"\",now(),"+ofertasNow+");";
 	  con.query(sql, function (err, result) {
 		if (err){ console.log("ERROR with: "+sql);
-throw err;
+			throw err;
 		}
-		console.log("INSERTED "+sql);
+//		console.log("INSERTED "+sql);
 	  });
 	});
 }
