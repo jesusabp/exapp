@@ -67,8 +67,7 @@ function catchOffers(abbrev, url, moto){
 		ofertas = ofertas.replace(moto, '');
 		ofertas = ofertas.replace('ofertas','');
 		ofertas = ofertas.replace(/\n$/, '');
-//		insertOfertasMysql(abbrev, ofertas); //
- console.log(abbrev +" "+ ofertas)
+		insertOfertasMysql(abbrev, ofertas); // console.log(abbrev +" "+ ofertas)
 	  })
 	  .catch((err) => {
 		console.log(err);
