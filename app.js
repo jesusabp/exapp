@@ -86,7 +86,7 @@ function insertOfertasMysql(abbrev, ofertasNow){
 	con.connect(function(err) {
 	  if (err) throw err;
 	  console.log("Connected!");
-	  var sql = "INSERT INTO ofertas (abbrev, datetime, oferta) VALUES ("+abbrev+",now(),"+ofertasNow+")";
+	  var sql = "INSERT INTO ofertas (abbrev, datetime, oferta) VALUES (\""+abbrev+"\",now(),"+ofertasNow+");";
 
 	  con.query(sql, function (err, result) {
 		if (err) throw err;
