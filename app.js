@@ -40,6 +40,15 @@ app.use(function(err, req, res, next) {
 
 /******/
 
+const CronJob = require('cron').CronJob;
+// const job = new CronJob('30 * * * *', function(){
+const job = new CronJob('*/15 * * * * *', function(){
+	catchOffers("ar",`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
+	catchOffers("co",`https://www.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
+	catchOffers("mx",`https://www.computrabajo.com.mx/`,'Portal del empleo líder en Latinoamérica' );
+});
+job.start();
+
 function catchOffers(abbrev, url, moto){
 	//https://codeburst.io/an-introduction-to-web-scraping-with-node-js-1045b55c63f7
 	const rp = require('request-promise');
@@ -65,19 +74,10 @@ function catchOffers(abbrev, url, moto){
 	  });
 }
 
-const CronJob = require('cron').CronJob;
-// const job = new CronJob('30 * * * *', function(){
-const job = new CronJob('*/15 * * * * *', function(){
-	catchOffers("ar",`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
-	catchOffers("co",`https://www.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
-	catchOffers("mx",`https://www.computrabajo.com.mx/`,'Portal del empleo líder en Latinoamérica' );
-});
-job.start();
-
 function insertOfertasMysql(abbrev, ofertasNow){
 	var mysql = require('mysql');
 	var con = mysql.createConnection({
-	  host: "172.30.131.55",
+	  host: "172.30.177.67",
 	  user: "DBusername",
 	  password: "DBpass",
 	  database: "empleo"
