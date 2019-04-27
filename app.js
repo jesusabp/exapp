@@ -54,7 +54,7 @@ const options = {
 
 const CronJob = require('cron').CronJob;
 // const job = new CronJob('30 * * * *', function(){
-const job = new CronJob('*/5 * * * * *', function(){
+const job = new CronJob('*/15 * * * * *', function(){
 
 rp(options)
   .then(($) => {
@@ -74,7 +74,7 @@ job.start();
 function insertOfertasMysql(ofertasNow){
 	var mysql = require('mysql');
 	var con = mysql.createConnection({
-	  host: "172.31.59.97",
+	  host: "172.31.131.55",
 	  user: "DBusername",
 	  password: "DBpass",
 	  database: "empleo"
