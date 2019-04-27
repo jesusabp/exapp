@@ -109,7 +109,7 @@ con.connect(function(err) {
 //  var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES ?”;
     var sql = "INSERT INTO ofertas (ofertas, datetime) VALUES (123, 'Blue Village 1')";
 
-  var values = [ofertasNow, datetime()];
+//  var values = [ofertasNow, datetime()];
 //  con.query(sql, [values], function (err, result) {
   con.query(sql, function (err, result) {
     if (err) throw err;
