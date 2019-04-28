@@ -41,7 +41,7 @@ app.use(function(err, req, res, next) {
 /******/
 
 const CronJob = require('cron').CronJob;
-const job = new CronJob('40 * * * *', function(){
+const job = new CronJob('20 * * * *', function(){
 //const job = new CronJob('*/15 * * * * *', function(){
 	catchOffers("ar",`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
 	catchOffers("co",`https://www.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
@@ -51,7 +51,7 @@ const job = new CronJob('40 * * * *', function(){
 	catchOffers("cl",`https://www.computrabajo.cl`,'El site de empleo #1 en Latinoamérica' );
 	catchOffers("ec",`https://www.computrabajo.com.ec`,'Encuentra las mejores ofertas en Ecuador' );
 	catchOffers("ve",`https://www.ve.computrabajo.com`,'Encuentra las mejores ofertas en Venezuela' );
-	catchOffers("cr",`https://www.computrabajo.co.cr`,'El portal de trabajo líder en Perú*' );
+	catchOffers("cr",`https://www.computrabajo.co.cr`,'Encuentra las mejores ofertas en Costa Rica' );
 
 	catchOffers("gt",`https://www.gt.computrabajo.com`,'Encuentra las mejores ofertas en Guatemala' );
 	catchOffers("sv",`https://www.sv.computrabajo.com`,'Encuentra las mejores ofertas en El Salvador' );
