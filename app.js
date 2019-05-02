@@ -83,7 +83,7 @@ function catchOffers(abbrev, url, moto){
 
 	rp(options)
 	  .then(($) => {
-		var ofertas = $('.sT').text(); 
+		var ofertas = $('.sT').text();
 		ofertas = ofertas.replace(moto, '');
 		ofertas = ofertas.replace('ofertas','');
 		ofertas = ofertas.replace(/\n$/, '');
@@ -121,8 +121,8 @@ function insertOfertasMysql(abbrev, ofertasNow){
 
 /******/
 
-//const job2 = new CronJob('* */12 * * *', function(){
-const job2 = new CronJob('*/15 * * * * *', function(){
+const job2 = new CronJob('* */12 * * *', function(){
+//const job2 = new CronJob('*/15 * * * * *', function(){
 	catchCVs("ar",`https://empresa.computrabajo.com.ar`,'La bolsa de trabajo con más ofertas en Argentina' );
 	catchCVs("co",`https://empresa.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
 	catchCVs("mx",`https://empresa.computrabajo.com.mx`,'La web de empleo líder en Latinoamérica' );
@@ -164,7 +164,7 @@ function catchCVs(abbrev, url, moto){
 
 	rp(options)
 	  .then(($) => {
-		var ofertas = $('.cm-8').text(); 
+		var ofertas = $('.cm-8').text();
 		ofertas = ofertas.replace(moto, '');
 		ofertas = ofertas.replace('currículums','');
 		ofertas = ofertas.replace('hojas de vida','');
