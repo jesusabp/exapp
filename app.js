@@ -41,8 +41,8 @@ app.use(function(err, req, res, next) {
 /******/
 
 const CronJob = require('cron').CronJob;
-const job = new CronJob('20 * * * *', function(){
-//const job = new CronJob('*/15 * * * * *', function(){
+//const job = new CronJob('20 * * * *', function(){ // each hour at min 20
+const job = new CronJob('*/15 * * * * *', function(){
 	catchOffers("ar",`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
 	catchOffers("co",`https://www.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
 	catchOffers("mx",`https://www.computrabajo.com.mx`,'Portal del empleo líder en Latinoamérica' );
@@ -98,30 +98,27 @@ function catchOffers(abbrev, url, moto){
 }
 
 function insertOfertasMysql(abbrev, ofertasNow){
-	var mysql = require('mysql');
-	var con = mysql.createConnection({
-	  host: "172.30.177.67",
-	  user: "DBusername",
-	  password: "DBpass",
-	  database: "empleo"
-	});
+	const { Client } = require('pg');
 
-	con.connect(function(err) {
-	  if (err) throw err;
-//	  console.log("Connected!");
-	  var sql = "INSERT INTO ofertas (abbrev, datetime, oferta) VALUES (\""+abbrev+"\",now(),"+ofertasNow+");";
-	  con.query(sql, function (err, result) {
-		if (err){ console.log("ERROR with: "+sql);
-			throw err;
+	const client = new Client({
+		connectionString: process.env.DATABASE_URL,
+		ssl: false,
+	});
+	
+	client.connect();
+	
+	client.query('INSERT INTO ofertas (abbrev, datetime, oferta) VALUES (\""+abbrev+"\",now(),"+ofertasNow+");', (err, res) => {
+		if (err) throw err;
+		for (let row of res.rows) {
+			console.log(JSON.stringify(row));
 		}
-//		console.log("INSERTED "+sql);
-	  });
+		client.end();
 	});
 }
 
 /******/
 
-const job2 = new CronJob('0 50 */12 * * *', function(){
+const job2 = new CronJob('0 50 */12 * * *', function(){ // 2 times each day
 //const job2 = new CronJob('*/15 * * * * *', function(){
 	catchCVs("ar",`https://empresa.computrabajo.com.ar`,'La bolsa de trabajo con más ofertas en Argentina' );
 	catchCVs("co",`https://empresa.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
@@ -187,7 +184,7 @@ function insertCVsMysql(abbrev, cvsNow){
 
 	const client = new Client({
 		connectionString: process.env.DATABASE_URL,
-		ssl: true,
+		ssl: false,
 	});
 	
 	client.connect();
