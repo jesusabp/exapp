@@ -90,7 +90,8 @@ function catchOffers(abbrev, url, moto){
 		ofertas = ofertas.replace(',', '');
 		ofertas = ofertas.replace('.', '');
 		ofertas = ofertas.trim();
-		insertOfertasMysql(abbrev, ofertas); // console.log(abbrev +" "+ ofertas)
+		// insertOfertasMysql(abbrev, ofertas); 
+		 console.log(abbrev +" "+ ofertas)
 	  })
 	  .catch((err) => {
 		console.log(err);
@@ -172,7 +173,8 @@ function catchCVs(abbrev, url, moto){
 		ofertas = ofertas.replace('.', '');
 		ofertas = ofertas.replace('.', '');
 		ofertas = ofertas.trim();
-		insertCVsMysql(abbrev, ofertas); // console.log(abbrev +" "+ ofertas)
+		// insertCVsMysql(abbrev, ofertas); 
+		 console.log(abbrev +" "+ ofertas)
 	  })
 	  .catch((err) => {
 		console.log(err);
