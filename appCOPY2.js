@@ -183,21 +183,24 @@ function catchCVs(abbrev, url, moto){
 }
 
 function insertCVsMysql(abbrev, cvsNow){
-	const { Client } = require('pg');
-
-	const client = new Client({
-		connectionString: process.env.DATABASE_URL,
-		ssl: true,
+	var mysql = require('mysql');
+	var con = mysql.createConnection({
+	  host: "172.30.177.67",
+	  user: "DBusername",
+	  password: "DBpass",
+	  database: "empleo"
 	});
-	
-	client.connect();
-	
-	client.query('INSERT INTO numcvs (abbrev, datetime, cvs) VALUES (\""+abbrev+"\",now(),"+cvsNow+");', (err, res) => {
-		if (err) throw err;
-		for (let row of res.rows) {
-			console.log(JSON.stringify(row));
+
+	con.connect(function(err) {
+	  if (err) throw err;
+//	  console.log("Connected!");
+	  var sql = "INSERT INTO numcvs (abbrev, datetime, cvs) VALUES (\""+abbrev+"\",now(),"+cvsNow+");";
+	  con.query(sql, function (err, result) {
+		if (err){ console.log("ERROR with: "+sql);
+			throw err;
 		}
-		client.end();
+//		console.log("INSERTED "+sql);
+	  });
 	});
 }
 

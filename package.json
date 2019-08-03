@@ -14,9 +14,24 @@
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "mysql": "^2.17.1",
+    "pg": "^7.12.0",
     "pug": "^2.0.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "sqlite3": "^4.0.6"
-  }
+  },
+  "description": "",
+  "main": "app COPY.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jesusabp/exapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jesusabp/exapp/issues"
+  },
+  "homepage": "https://github.com/jesusabp/exapp#readme"
 }
