@@ -42,7 +42,7 @@ app.use(function(err, req, res, next) {
 
 const CronJob = require('cron').CronJob;
 //const job = new CronJob('*/15 * * * * *', function(){ // to test every 15 secs.
-const job = new CronJob('20 * * * *', function(){ // each hour at min 20
+const job = new CronJob('20 */2 * * *', function(){ // each hour at min 20
 	catchOffers("ar",`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
 	//catchOffers("co",`https://www.computrabajo.com.co`,'El portal de empleo líder en Colombia*' ); changed on Aug4-19
 	catchOffers("co",`https://www.computrabajo.com.co`,'Portal del empleo líder en Latinoamérica' );
