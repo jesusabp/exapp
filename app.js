@@ -125,8 +125,8 @@ function insertOfertasMysql(abbrev, ofertasNow){
 
 /******/
 
-//const job2 = new CronJob('0 50 */12 * * *', function(){ // 2 times each day
-const job2 = new CronJob('*/15 * * * * *', function(){
+//const job2 = new CronJob('*/15 * * * * *', function(){
+const job2 = new CronJob('0 50 */12 * * *', function(){ // 2 times each day
 	catchCVs("ar",`https://empresa.computrabajo.com.ar`,'La bolsa de trabajo con más ofertas en Argentina' );
 	//catchCVs("co",`https://empresa.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
 	catchCVs("co",`https://empresa.computrabajo.com.co`,'Portal del empleo líder en Latinoamérica' );
