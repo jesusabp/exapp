@@ -41,12 +41,14 @@ app.use(function(err, req, res, next) {
 /******/
 
 const CronJob = require('cron').CronJob;
-//const job = new CronJob('20 * * * *', function(){ // each hour at min 20
-const job = new CronJob('*/15 * * * * *', function(){
+//const job = new CronJob('*/15 * * * * *', function(){ // to test every 15 secs.
+const job = new CronJob('20 * * * *', function(){ // each hour at min 20
 	catchOffers("ar",`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
-	catchOffers("co",`https://www.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
+	//catchOffers("co",`https://www.computrabajo.com.co`,'El portal de empleo líder en Colombia*' ); changed on Aug4-19
+	catchOffers("co",`https://www.computrabajo.com.co`,'Portal del empleo líder en Latinoamérica' );
 	catchOffers("mx",`https://www.computrabajo.com.mx`,'Portal del empleo líder en Latinoamérica' );
-	catchOffers("pe",`https://www.computrabajo.com.pe`,'El portal de trabajo líder en Perú*' );
+	//catchOffers("pe",`https://www.computrabajo.com.pe`,'El portal de trabajo líder en Perú*' ); changed on Aug4-19
+  catchOffers("pe",`https://www.computrabajo.com.pe`,'Portal del empleo líder en Latinoamérica' );
 
 	catchOffers("cl",`https://www.computrabajo.cl`,'El site de empleo #1 en Latinoamérica' );
 	catchOffers("ec",`https://www.computrabajo.com.ec`,'Encuentra las mejores ofertas en Ecuador' );
@@ -86,12 +88,13 @@ function catchOffers(abbrev, url, moto){
 		var ofertas = $('.sT').text();
 		ofertas = ofertas.replace(moto, '');
 		ofertas = ofertas.replace('ofertas','');
+		ofertas = ofertas.replace('avisos','');
+		ofertas = ofertas.replace('Avisos','');
 		ofertas = ofertas.replace(/\n$/, '');
 		ofertas = ofertas.replace(',', '');
 		ofertas = ofertas.replace('.', '');
 		ofertas = ofertas.trim();
-		// insertOfertasMysql(abbrev, ofertas); 
-		 console.log(abbrev +" "+ ofertas)
+		insertOfertasMysql(abbrev, ofertas); // console.log(abbrev +" "+ ofertas + " <-OFERTAS ")
 	  })
 	  .catch((err) => {
 		console.log(err);
@@ -101,15 +104,18 @@ function catchOffers(abbrev, url, moto){
 function insertOfertasMysql(abbrev, ofertasNow){
 	const { Client } = require('pg');
 
+	//var connectionString = "postgres://localhost:5432/d3br4ifgpaaic8"; // to test locally.
 	const client = new Client({
+		//connectionString, // to test locally.
 		connectionString: process.env.DATABASE_URL,
 		ssl: false,
 	});
 	
 	client.connect();
-	
-	client.query('INSERT INTO ofertas (abbrev, datetime, oferta) VALUES (\""+abbrev+"\",now(),"+ofertasNow+");', (err, res) => {
-		if (err) throw err;
+
+	//client.query('SELECT * FROM ofertas', (err, res) => { // to test the connection.
+	client.query("INSERT INTO ofertas (abbrev, datetime, oferta) VALUES (\'"+abbrev+"\',now(),"+ofertasNow+");", (err, res) => {
+			if (err) throw err;
 		for (let row of res.rows) {
 			console.log(JSON.stringify(row));
 		}
@@ -119,10 +125,11 @@ function insertOfertasMysql(abbrev, ofertasNow){
 
 /******/
 
-const job2 = new CronJob('0 50 */12 * * *', function(){ // 2 times each day
-//const job2 = new CronJob('*/15 * * * * *', function(){
+//const job2 = new CronJob('0 50 */12 * * *', function(){ // 2 times each day
+const job2 = new CronJob('*/15 * * * * *', function(){
 	catchCVs("ar",`https://empresa.computrabajo.com.ar`,'La bolsa de trabajo con más ofertas en Argentina' );
-	catchCVs("co",`https://empresa.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
+	//catchCVs("co",`https://empresa.computrabajo.com.co`,'El portal de empleo líder en Colombia*' );
+	catchCVs("co",`https://empresa.computrabajo.com.co`,'Portal del empleo líder en Latinoamérica' );
 	catchCVs("mx",`https://empresa.computrabajo.com.mx`,'La web de empleo líder en Latinoamérica' );
 	catchCVs("pe",`https://empresa.computrabajo.com.pe`,'Encuentra los mejores avisos en Perú' );
 
@@ -173,8 +180,7 @@ function catchCVs(abbrev, url, moto){
 		ofertas = ofertas.replace('.', '');
 		ofertas = ofertas.replace('.', '');
 		ofertas = ofertas.trim();
-		// insertCVsMysql(abbrev, ofertas); 
-		 console.log(abbrev +" "+ ofertas)
+		insertCVsMysql(abbrev, ofertas); // console.log(abbrev +" "+ ofertas + " <-CVs")
 	  })
 	  .catch((err) => {
 		console.log(err);
@@ -184,14 +190,16 @@ function catchCVs(abbrev, url, moto){
 function insertCVsMysql(abbrev, cvsNow){
 	const { Client } = require('pg');
 
+	//var connectionString = "postgres://localhost:5432/d3br4ifgpaaic8"; // to test locally.
 	const client = new Client({
+		//connectionString, // to test locally.
 		connectionString: process.env.DATABASE_URL,
 		ssl: false,
 	});
 	
 	client.connect();
 	
-	client.query('INSERT INTO numcvs (abbrev, datetime, cvs) VALUES (\""+abbrev+"\",now(),"+cvsNow+");', (err, res) => {
+	client.query("INSERT INTO numcvs (abbrev, datetime, cvs) VALUES (\'"+abbrev+"\',now(),"+cvsNow+");", (err, res) => {
 		if (err) throw err;
 		for (let row of res.rows) {
 			console.log(JSON.stringify(row));
