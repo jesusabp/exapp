@@ -26,7 +26,7 @@ function offers(){
 	catchOffers("cl",`https://www.computrabajo.cl`,'El site de empleo #1 en Latinoamérica' );
 	catchOffers("ec",`https://www.computrabajo.com.ec`,'Encuentra las mejores ofertas en Ecuador' );
 	catchOffers("ve",`https://www.ve.computrabajo.com`,'Encuentra las mejores ofertas en Venezuela' );
-	catchOffers("cr",`https://www.computrabajo.co.cr`,'Encuentra las mejores ofertas en Costa Rica' );
+	//catchOffers("cr",`https://www.computrabajo.co.cr`,'Encuentra las mejores ofertas en Costa Rica' );
 
 	catchOffers("gt",`https://www.gt.computrabajo.com`,'Encuentra las mejores ofertas en Guatemala' );
 	catchOffers("sv",`https://www.sv.computrabajo.com`,'Encuentra las mejores ofertas en El Salvador' );
@@ -41,7 +41,8 @@ function offers(){
 	catchOffers("bo",`https://www.computrabajo.com.bo`,'Encuentra las mejores ofertas en Bolivia' );
 	catchOffers("cu",`https://www.cu.computrabajo.com`,'Encuentra las mejores ofertas en Cuba' );
 	catchOffers("pr",`https://www.computrabajo.com.pr`,'Encuentra las mejores ofertas en Puerto Rico' );
-	catchOffers("es",`https://www.computrabajo.es`,'La web de empleo en español más usada del mundo' );
+	//catchOffers("es",`https://www.computrabajo.es`,'La web de empleo en español más usada del mundo' );
+
 }
 
 function catchOffers(abbrev, url, moto){
@@ -76,10 +77,10 @@ function catchOffers(abbrev, url, moto){
 function insertOfertas(abbrev, ofertasNow){
 	const { Client } = require('pg');
 
-	//var connectionString = "postgres://localhost:5432/d3br4ifgpaaic8"; // to test locally.
+	var connectionString = "postgres://localhost:5432/d3br4ifgpaaic8"; // to test locally.
 	const client = new Client({
-		//connectionString, // to test locally.
-		connectionString: process.env.DATABASE_URL,
+		connectionString, // to test locally.
+		//connectionString: process.env.DATABASE_URL,
 		ssl: false,
 	});
 	
@@ -96,12 +97,12 @@ function insertOfertas(abbrev, ofertasNow){
 }
 
 function cvs(){
-  catchCVs("ar",`https://empresa.computrabajo.com.ar`,'La bolsa de trabajo con más ofertas en Argentina' );
+  catchCVs("ar",`https://empresa.computrabajo.com.ar`,'La bolsa de trabajo con más avisos en Argentina' );
 	catchCVs("co",`https://empresa.computrabajo.com.co`,'Portal del empleo líder en Latinoamérica' );
 	catchCVs("mx",`https://empresa.computrabajo.com.mx`,'La web de empleo líder en Latinoamérica' );
 	catchCVs("pe",`https://empresa.computrabajo.com.pe`,'Encuentra los mejores avisos en Perú' );
 
-	catchCVs("cl",`https://empresa.computrabajo.cl`,'La bolsa de trabajo con más ofertas en Chile' );
+	catchCVs("cl",`https://empresa.computrabajo.cl`,'La bolsa de trabajo con más avisos en Chile' );
 	catchCVs("ec",`https://empresa.computrabajo.com.ec`,'Encuentra las mejores ofertas en Ecuador' );
 	catchCVs("ve",`https://empresa.ve.computrabajo.com`,'Encuentra las mejores ofertas en Venezuela' );
 	catchCVs("cr",`https://empresa.computrabajo.co.cr`,'Encuentra las mejores ofertas en Costa Rica' );
@@ -119,7 +120,7 @@ function cvs(){
 	catchCVs("bo",`https://empresa.computrabajo.com.bo`,'Encuentra las mejores ofertas en Bolivia' );
 	catchCVs("cu",`https://empresa.cu.computrabajo.com`,'Encuentra las mejores ofertas en Cuba' );
 	catchCVs("pr",`https://empresa.computrabajo.com.pr`,'Encuentra las mejores ofertas en Puerto Rico' );
-	catchCVs("es",`https://empresa.computrabajo.es`,'La web de empleo en español más usada del mundo' );
+	//catchCVs("es",`https://empresa.computrabajo.es`,'La web de empleo en español más usada del mundo' );
 }
 
 function catchCVs(abbrev, url, moto){
@@ -156,10 +157,10 @@ function catchCVs(abbrev, url, moto){
 function insertCVs(abbrev, cvsNow){
 	const { Client } = require('pg');
 
-	//var connectionString = "postgres://localhost:5432/d3br4ifgpaaic8"; // to test locally.
+	var connectionString = "postgres://localhost:5432/d3br4ifgpaaic8"; // to test locally.
 	const client = new Client({
-		//connectionString, // to test locally.
-		connectionString: process.env.DATABASE_URL,
+		connectionString, // to test locally.
+		//connectionString: process.env.DATABASE_URL,
 		ssl: false,
 	});
 	
