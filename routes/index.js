@@ -78,9 +78,10 @@ function insertOfertas(abbrev, ofertasNow){
 	const { Client } = require('pg');
 
 	//var connectionString = "postgres://localhost:5432/d3br4ifgpaaic8"; // to test locally.
+	var connectionString = "postgres://hbhbnjzmnngwtb:7de471fdd4ee9db7471107d22a41d53ed2980f55957fcf7ce8c6c2aed1573405@ec2-35-174-35-242.compute-1.amazonaws.com:5432/d6m43hphpi83av";
 	const client = new Client({
 		//connectionString, // to test locally.
-		connectionString: process.env.DATABASE_URL,
+		//connectionString: process.env.DATABASE_URL,
 		ssl: { rejectUnauthorized: true },
 	});
 	
