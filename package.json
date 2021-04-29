@@ -1,4 +1,5 @@
 {
+  "engines": { "node": "~10.15.3" },
   "name": "exapp",
   "version": "0.0.0",
   "private": true,
