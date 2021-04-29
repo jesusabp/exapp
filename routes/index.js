@@ -81,7 +81,7 @@ function insertOfertas(abbrev, ofertasNow){
 	const client = new Client({
 		connectionString, // to test locally.
 		//connectionString: process.env.DATABASE_URL,
-		ssl: false,
+		ssl: { rejectUnauthorized: false },
 	});
 	
 	client.connect();
