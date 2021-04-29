@@ -81,7 +81,7 @@ function insertOfertas(abbrev, ofertasNow){
 	const client = new Client({
 		//connectionString, // to test locally.
 		connectionString: process.env.DATABASE_URL,
-		ssl: { rejectUnauthorized: false },
+		ssl: { rejectUnauthorized: true },
 	});
 	
 	client.connect(err => {
@@ -100,6 +100,13 @@ function insertOfertas(abbrev, ofertasNow){
 			console.log(JSON.stringify(row));
 		}
 	});
+	
+	client.end(err => {
+	  console.log('client has disconnected')
+	  if (err) {
+	    console.log('error during disconnection', err.stack)
+	  }
+	})
 }
 
 function cvs(){
