@@ -101,13 +101,14 @@ function insertOfertas(abbrev, ofertasNow){
 			console.log(JSON.stringify(row));
 		}
 	});
-	
+/*	
 	client.end(err => {
 	  console.log('client has disconnected')
 	  if (err) {
 	    console.log('error during disconnection', err.stack)
 	  }
 	})
+*/	
 }
 
 function cvs(){
