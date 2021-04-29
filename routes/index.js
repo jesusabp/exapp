@@ -84,7 +84,14 @@ function insertOfertas(abbrev, ofertasNow){
 		ssl: { rejectUnauthorized: false },
 	});
 	
-	client.connect();
+	client.connect(err => {
+	  if (err) {
+	    console.error('error connecting', err.stack)
+	  } else {
+	    console.log('connected')
+	    client.end()
+	  }
+	})
 
 	//client.query('SELECT * FROM ofertas', (err, res) => { // to test the connection.
 	client.query("INSERT INTO ofertas (abbrev, datetime, oferta) VALUES (\'"+abbrev+"\',now(),"+ofertasNow+");", (err, res) => {
@@ -92,7 +99,6 @@ function insertOfertas(abbrev, ofertasNow){
 		for (let row of res.rows) {
 			console.log(JSON.stringify(row));
 		}
-		client.end();
 	});
 }
 
