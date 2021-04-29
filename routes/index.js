@@ -19,7 +19,7 @@ router.get('/cvs', function(req, res, next) {
 
 function offers(){
   catchOffers("ar",`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
-	catchOffers("co",`https://www.computrabajo.com.co`,'Portal del empleo líder en Latinoamérica' );
+/*	catchOffers("co",`https://www.computrabajo.com.co`,'Portal del empleo líder en Latinoamérica' );
 	catchOffers("mx",`https://www.computrabajo.com.mx`,'Portal del empleo líder en Latinoamérica' );
   catchOffers("pe",`https://www.computrabajo.com.pe`,'Portal del empleo líder en Latinoamérica' );
 
@@ -42,7 +42,7 @@ function offers(){
 	catchOffers("cu",`https://www.cu.computrabajo.com`,'Encuentra las mejores ofertas en Cuba' );
 	catchOffers("pr",`https://www.computrabajo.com.pr`,'Encuentra las mejores ofertas en Puerto Rico' );
 	//catchOffers("es",`https://www.computrabajo.es`,'La web de empleo en español más usada del mundo' );
-
+*/
 }
 
 function catchOffers(abbrev, url, moto){
@@ -82,7 +82,7 @@ function insertOfertas(abbrev, ofertasNow){
 	const client = new Client({
 		//connectionString, // to test locally.
 		connectionString: process.env.DATABASE_URL,
-		ssl: { rejectUnauthorized: false },
+		ssl: true,
 	});
 	
 	client.connect(err => {
