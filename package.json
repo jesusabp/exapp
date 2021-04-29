@@ -34,4 +34,5 @@
     "url": "https://github.com/jesusabp/exapp/issues"
   },
   "homepage": "https://github.com/jesusabp/exapp#readme"
+  "engines" : { "node" : "10.15.3" } 
 }
