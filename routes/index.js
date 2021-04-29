@@ -77,10 +77,10 @@ function catchOffers(abbrev, url, moto){
 function insertOfertas(abbrev, ofertasNow){
 	const { Client } = require('pg');
 
-	var connectionString = "postgres://localhost:5432/d3br4ifgpaaic8"; // to test locally.
+	//var connectionString = "postgres://localhost:5432/d3br4ifgpaaic8"; // to test locally.
 	const client = new Client({
-		connectionString, // to test locally.
-		//connectionString: process.env.DATABASE_URL,
+		//connectionString, // to test locally.
+		connectionString: process.env.DATABASE_URL,
 		ssl: { rejectUnauthorized: false },
 	});
 	
