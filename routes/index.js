@@ -19,7 +19,7 @@ router.get('/cvs', function(req, res, next) {
 
 function offers(){
   catchOffers("ar",`https://www.computrabajo.com.ar`,'El portal de empleo con más ofertas en Argentina' );
-/*	catchOffers("co",`https://www.computrabajo.com.co`,'Portal del empleo líder en Latinoamérica' );
+	catchOffers("co",`https://www.computrabajo.com.co`,'Portal del empleo líder en Latinoamérica' );
 	catchOffers("mx",`https://www.computrabajo.com.mx`,'Portal del empleo líder en Latinoamérica' );
   catchOffers("pe",`https://www.computrabajo.com.pe`,'Portal del empleo líder en Latinoamérica' );
 
@@ -42,7 +42,7 @@ function offers(){
 	catchOffers("cu",`https://www.cu.computrabajo.com`,'Encuentra las mejores ofertas en Cuba' );
 	catchOffers("pr",`https://www.computrabajo.com.pr`,'Encuentra las mejores ofertas en Puerto Rico' );
 	//catchOffers("es",`https://www.computrabajo.es`,'La web de empleo en español más usada del mundo' );
-*/
+
 }
 
 function catchOffers(abbrev, url, moto){
@@ -87,28 +87,27 @@ function insertOfertas(abbrev, ofertasNow){
 	
 	client.connect(err => {
 	  if (err) {
-	    console.error('error connecting', err.stack)
+	    console.error('error Connecting', err.stack)
 	  } else {
-	    console.log('connected')
+	    console.log('Connected')
 	  }
 	})
 	
 	//client.query('SELECT NOW()', (err, res) => {
 	//client.query('SELECT * FROM ofertas', (err, res) => { // to test the connection.
 	client.query("INSERT INTO ofertas (abbrev, datetime, oferta) VALUES (\'"+abbrev+"\',now(),"+ofertasNow+");", (err, res) => {
-			if (err) throw err;
+		if (err) throw err;
 		for (let row of res.rows) {
 			console.log(JSON.stringify(row));
 		}
 	});
-/*	
+
 	client.end(err => {
 	  console.log('client has disconnected')
 	  if (err) {
 	    console.log('error during disconnection', err.stack)
 	  }
 	})
-*/	
 }
 
 function cvs(){
@@ -172,11 +171,12 @@ function catchCVs(abbrev, url, moto){
 function insertCVs(abbrev, cvsNow){
 	const { Client } = require('pg');
 
-	var connectionString = "postgres://localhost:5432/d3br4ifgpaaic8"; // to test locally.
+	//var connectionString = "postgres://localhost:5432/d3br4ifgpaaic8"; // to test locally.
 	const client = new Client({
-		connectionString, // to test locally.
-		//connectionString: process.env.DATABASE_URL,
-		ssl: false,
+		//connectionString, // to test locally.
+		connectionString: process.env.DATABASE_URL,
+		//ssl: false,
+		ssl: { rejectUnauthorized: false }
 	});
 	
 	client.connect();
