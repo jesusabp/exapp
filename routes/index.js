@@ -90,7 +90,6 @@ function insertOfertas(abbrev, ofertasNow){
 	    console.error('error connecting', err.stack)
 	  } else {
 	    console.log('connected')
-	    client.end()
 	  }
 	})
 	
