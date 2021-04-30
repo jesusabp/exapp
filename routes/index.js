@@ -93,8 +93,9 @@ function insertOfertas(abbrev, ofertasNow){
 	    client.end()
 	  }
 	})
-
-	client.query('SELECT * FROM ofertas', (err, res) => { // to test the connection.
+	
+	client..query('SELECT NOW()', (err, res) => {
+	//client.query('SELECT * FROM ofertas', (err, res) => { // to test the connection.
 	//client.query("INSERT INTO ofertas (abbrev, datetime, oferta) VALUES (\'"+abbrev+"\',now(),"+ofertasNow+");", (err, res) => {
 			if (err) throw err;
 		for (let row of res.rows) {
